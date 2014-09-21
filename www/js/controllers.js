@@ -1,11 +1,11 @@
-angular.module('starter.controllers', [])
+angular.module('pescadorescolombia.controllers', ['ngResource'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, OpenFB, $state) {
   // Form data for the login modal
   $scope.loginData = {};
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('templates/login-pop.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -31,6 +31,35 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.logout = function () {
+    OpenFB.logout();
+    $state.go('app.login');
+  };
+
+  OpenFB.get('/me').success(function (user) {
+      $scope.user = user;
+  });
+
+  $scope.getFacebookInfo = function () {
+    OpenFB.get('/me').success(function (user) {
+        $scope.user = user;
+    });
+  };
+})
+
+.controller('LoginCtrl', function ($scope, $location, OpenFB) {
+    $scope.facebookLogin = function () {
+
+      OpenFB.login('email,read_stream,publish_stream').then(
+          function () {
+              $location.path('/app/feed');
+          },
+          function () {
+              alert('OpenFB login failed');
+          });
+    };
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -44,5 +73,23 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('FeedCtrl', function($scope, $resource, OpenFB) {
+  
+  var feeds = $resource('http://pescadorescolombia-api.herokuapp.com/feed');
+  $scope.feeds = feeds.query();
+})
+
+.controller('CatchesCtrl', function($scope, $resource) {
+  var catches = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/');
+  $scope.catches = catches.query({user: 'Jonathan'});
+})
+
+.controller('CatchDetailCtrl', function($scope, $stateParams, $resource) {
+  var catchDetail = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/:title');
+  $scope.catchDetail = catchDetail.get({user: 'Jonathan', title: $stateParams.catchId});
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
+
+

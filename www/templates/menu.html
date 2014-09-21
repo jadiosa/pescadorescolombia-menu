@@ -8,24 +8,42 @@
   </ion-pane>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+    <header class="bar bar-assertive bar-header bar-stable">
+      <h1 class="title">Pescadores Colombia</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
+        <a nav-clear menu-close class="item item-avatar" href="#/app/account">
+          <img src="https://graph.facebook.com/{{user.id}}/picture">
+           <h2>{{user.name}}</h2>
+           <p>{{user.email}}</p>
+        </a>
+        <a menu-close nav-clear class="item item-icon-left" href="#/app/feed">
+          <i class="icon icon-fishing2"></i>
+          Actividad
+          
+        </a>
+        <a menu-close nav-clear class="item item-icon-left" href="#/app/catches">
+          <i class="icon icon-baby69"></i>
+          Capturas
+        </a>
+        <a menu-close nav-clear class="item item-icon-left" ng-click="getFacebookInfo()">
+          <i class="icon ion-log-out"></i>
+          Salir
+        </a>
+       
+        <!--
         <ion-item nav-clear menu-close ng-click="login()">
-          Login
+          Login-pop
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/search">
           Search
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
-        </ion-item>
+        </ion-item>   
         <ion-item nav-clear menu-close href="#/app/playlists">
           Playlists
-        </ion-item>
+        </ion-item> -->
       </ion-list>
     </ion-content>
   </ion-side-menu>
+
 </ion-side-menus>
