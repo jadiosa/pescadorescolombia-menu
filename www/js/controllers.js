@@ -37,15 +37,14 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
     $state.go('app.login');
   };
 
-  OpenFB.get('/me').success(function (user) {
-      $scope.user = user;
-  });
-
-  $scope.getFacebookInfo = function () {
+  function facebookInfo(){
     OpenFB.get('/me').success(function (user) {
-        $scope.user = user;
-    });
-  };
+      $scope.user = user;
+    }); 
+  }
+
+  $scope.getFacebookInfo = facebookInfo;
+  facebookInfo();
 })
 
 .controller('LoginCtrl', function ($scope, $location, OpenFB) {
@@ -73,10 +72,28 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   ];
 })
 
-.controller('FeedCtrl', function($scope, $resource, OpenFB) {
+.controller('FeedCtrl', function($scope, $resource, OpenFB, $ionicLoading, $stateParams) {
   
-  var feeds = $resource('http://pescadorescolombia-api.herokuapp.com/feed');
-  $scope.feeds = feeds.query();
+  $scope.show = function() {
+      $scope.loading = $ionicLoading.show({
+          content: 'Loading feed...'
+      });
+  };
+  $scope.hide = function(){
+      $scope.loading.hide();
+  };
+
+  function loadFeed() {
+    $scope.show();
+    var feeds = $resource('http://pescadorescolombia-api.herokuapp.com/feed');
+    $scope.feeds = feeds.query();
+    $scope.hide();
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+
+  $scope.doRefresh = loadFeed;
+
+  loadFeed();
 })
 
 .controller('CatchesCtrl', function($scope, $resource) {
