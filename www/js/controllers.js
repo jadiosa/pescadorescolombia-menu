@@ -1,6 +1,10 @@
 angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, OpenFB, $state) {
+  
+  /* Login Modal Example */
+  /*
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -31,10 +35,22 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       $scope.closeLogin();
     }, 1000);
   };
-
+  
+  /* End Login Modal Example */
+  
   $scope.logout = function () {
     OpenFB.logout();
     $state.go('app.login');
+  };
+
+  $scope.revokePermissions = function () {
+      OpenFB.revokePermissions().then(
+          function () {
+              $state.go('app.login');
+          },
+          function () {
+              alert('Revoke permissions failed');
+          });
   };
 
   function facebookInfo(){
