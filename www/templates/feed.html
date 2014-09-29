@@ -21,16 +21,16 @@
 		    <p>{{item.message}}</p>
 		    <img ng-if="item.picture" ng-src="{{ item.picture }}"/>
 		    <p>
-		      <a href="#" class="subdued">({{item.like.length || 0}}) Me gusta</a>
-		      <a href="#" class="subdued">({{item.comment.length || 0}}) Comentarios</a>
+		      <a href="#/app/feed/{{item._id}}" class="subdued">({{item.likes || 0}}) Likes</a>
+		      <a href="#/app/feed/{{item._id}}" class="subdued">({{item.comments || 0}}) Comentarios</a>
 		    </p>
 		</div>
 		<div class="item tabs tabs-secondary tabs-icon-left">
-		    <a class="tab-item" href="#">
-		      <i class="icon ion-thumbsup"></i>
+		    <a class="tab-item" ng-click="addLike(item._id)">
+		      <i class="icon ion-thumbsup "></i>
 		      Like
 		    </a>
-		    <a class="tab-item" href="#">
+		    <a class="tab-item" href="#/app/feed/{{item._id}}">
 		      <i class="icon ion-chatbox"></i>
 		      Comment
 		    </a>

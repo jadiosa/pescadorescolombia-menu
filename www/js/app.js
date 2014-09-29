@@ -4,12 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('pescadorescolombia', ['ionic','openfb', 'pescadorescolombia.controllers'])
+angular.module('pescadorescolombia', ['ionic','openfb', 'pescadorescolombia.controllers','pescadorescolombia.services'])
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
 
-  OpenFB.init('538828049551803');
-  //OpenFB.init('538828049551803','http://192.168.1.101:8100/oauthcallback.html', window.localStorage);
+  //OpenFB.init('538828049551803');
+  OpenFB.init('538828049551803','http://192.168.1.100:8100/oauthcallback.html', window.localStorage);
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -61,6 +61,15 @@ angular.module('pescadorescolombia', ['ionic','openfb', 'pescadorescolombia.cont
         'menuContent' :{
           templateUrl: "templates/feed.html",
           controller: 'FeedCtrl'
+        }
+      }
+    })
+    .state('app.feed-detail', {
+      url: '/feed/:feedId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/feed-detail.html',
+          controller: 'FeedDetailCtrl'
         }
       }
     })

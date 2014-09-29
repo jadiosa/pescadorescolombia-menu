@@ -1,0 +1,58 @@
+<ion-view title="Actividad">
+	<ion-content class="has-header" >
+	<div class="list card">
+		<div class="item item-avatar">
+		    <img src="https://graph.facebook.com/{{feed.from.facebookid}}/picture">
+		    <h2>{{feed.from.name}}</h2>
+		    <p>{{feed.created_time | date:'MMM d, y h:mma'}}</p>
+	  	</div>
+		<div class="item item-body">
+		    <p>{{feed.message}}</p>
+		    <img ng-if="item.picture" ng-src="{{ feed.picture }}"/>
+		    <p>
+		      <i class="subdued">({{feed.likes || 0}}) Likes</i>
+		      <i class="subdued">({{feed.comments || 0}}) Comentarios</i>
+		    </p>
+		</div>
+		<div class="item tabs tabs-secondary tabs-icon-left">
+		    <a class="tab-item" ng-click="addLike(feed._id)">
+		      <i class="icon ion-thumbsup "></i>
+		      Like
+		    </a>
+		    <a class="tab-item" href="#">
+		      <i class="icon ion-chatbox"></i>
+		      Comment
+		    </a>
+		</div>
+
+		<div class="list">
+		    
+		    <div class="item item-avatar" ng-repeat="comment in feed.comment">
+		      <img src="https://graph.facebook.com/{{comment.from.facebookid}}/picture">
+		      <h2>{{comment.from.name}}</h2>
+		      <p>{{comment.message}}</p>
+		    </div>
+		    <form role="form">
+		    <div class="list">
+			 	<div class="item item-input-inset">
+			 		
+						<label class="item-input-wrapper">
+				    		<i class="icon ion-chatbox placeholder-icon"></i>
+				      		<input type="text" ng-model="newComment"  id="newComment"  placeholder="Write a comment ...">
+				    	</label>
+				    	<button class="button button-small" ng-click="addComment(newComment)">
+				      		Submit
+				    	</button>
+					
+			  	</div>
+
+			</div>
+			</form>
+
+		</div>
+		
+	</div>
+	
+
+  </ion-content>
+</ion-view>

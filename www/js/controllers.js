@@ -88,28 +88,63 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   ];
 })
 
-.controller('FeedCtrl', function($scope, $resource, OpenFB, $ionicLoading, $stateParams) {
-  
+.controller('FeedCtrl', function($scope, $http, $ionicLoading, $stateParams, Feed) {
+
   $scope.show = function() {
-      $scope.loading = $ionicLoading.show({
-          content: 'Loading feed...'
-      });
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
   };
   $scope.hide = function(){
-      $scope.loading.hide();
+    $ionicLoading.hide();
   };
 
+  $scope.addLike = function(feedId){
+    var likeData = { 
+      "from": {
+                "name": $scope.user.name,
+                "facebookid": $scope.user.id
+              }
+    }
+
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addlike/',likeData).
+      success(function(data, status) {
+              //alert("al pelo");
+      });
+    
+  };
+
+  
   function loadFeed() {
-    $scope.show();
-    var feeds = $resource('http://pescadorescolombia-api.herokuapp.com/feed');
-    $scope.feeds = feeds.query();
-    $scope.hide();
-    $scope.$broadcast('scroll.refreshComplete');
+    $scope.feeds = Feed.query();
   }
 
   $scope.doRefresh = loadFeed;
 
   loadFeed();
+})
+
+.controller('FeedDetailCtrl', function($scope, $stateParams, $http, Feed) {
+  $scope.feed = Feed.get({id:$stateParams.feedId});
+
+  $scope.addComment = function(newComment){
+    feedId = $scope.feed._id;
+    var commentData = { 
+      "from": {
+                "name": $scope.user.name,
+                "facebookid": $scope.user.id
+              },
+      "message": newComment,
+      "created_time" : new Date()
+    }
+
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData).
+      success(function(data, status) {
+              alert("al pelo");
+      });
+    
+  };
+
 })
 
 .controller('CatchesCtrl', function($scope, $resource) {
@@ -121,6 +156,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   var catchDetail = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/:title');
   $scope.catchDetail = catchDetail.get({user: 'Jonathan', title: $stateParams.catchId});
 })
+
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
