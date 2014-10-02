@@ -101,17 +101,19 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
   $scope.addLike = function(feedId){
     var likeData = { 
-      "from": {
-                "name": $scope.user.name,
-                "facebookid": $scope.user.id
+      'from': {
+                'name': $scope.user.name,
+                'facebookid': $scope.user.id
               }
     }
 
-    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addlike/',likeData).
-      success(function(data, status) {
-              //alert("al pelo");
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addlike/',likeData)
+      .success(function(data, status) {
+        alert("al pelo");
+      })
+      .error(function(data, status) {
+          alert("fallo");
       });
-    
   };
 
   
@@ -130,19 +132,21 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   $scope.addComment = function(newComment){
     feedId = $scope.feed._id;
     var commentData = { 
-      "from": {
-                "name": $scope.user.name,
+      'from': {
+                'name': $scope.user.name,
                 "facebookid": $scope.user.id
               },
-      "message": newComment,
-      "created_time" : new Date()
+      'message': newComment,
+      'created_time' : new Date()
     }
 
-    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData).
-      success(function(data, status) {
-              alert("al pelo");
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData)
+      .success(function(data, status) {
+        alert("al pelo");
+      })
+      .error(function(data, status) {
+          alert("fallo");
       });
-    
   };
 
 })
