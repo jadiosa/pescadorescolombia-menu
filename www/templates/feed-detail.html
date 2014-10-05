@@ -2,7 +2,7 @@
 	<ion-content class="has-header" >
 	<div class="list card">
 		<div class="item item-avatar">
-		    <img src="https://graph.facebook.com/{{feed.from.facebookid}}/picture">
+		    <img ng-if="feed.from.facebookid" ng-src="https://graph.facebook.com/{{feed.from.facebookid}}/picture">
 		    <h2>{{feed.from.name}}</h2>
 		    <p>{{feed.created_time | date:'MMM d, y h:mma'}}</p>
 	  	</div>
@@ -26,32 +26,24 @@
 		</div>
 
 		<div class="list">
-		    
 		    <div class="item item-avatar" ng-repeat="comment in feed.comment">
-		      <img src="https://graph.facebook.com/{{comment.from.facebookid}}/picture">
+		      <img ng-src="https://graph.facebook.com/{{comment.from.facebookid}}/picture">
 		      <h2>{{comment.from.name}}</h2>
 		      <p>{{comment.message}}</p>
 		    </div>
-		    <form role="form">
-		    <div class="list">
-			 	<div class="item item-input-inset">
-			 		
-						<label class="item-input-wrapper">
-				    		<i class="icon ion-chatbox placeholder-icon"></i>
-				      		<input type="text" ng-model="newComment"  id="newComment"  placeholder="Write a comment ...">
-				    	</label>
-				    	<button class="button button-small" ng-click="addComment(newComment)">
-				      		Submit
-				    	</button>
-					
-			  	</div>
-
-			</div>
-			</form>
-
 		</div>
-		
 	</div>
+
+	<form role="form" ng-submit="addComment()">
+
+	  	<div class="list list-inset">
+		  <label class="item item-input">
+		    <i class="icon ion-chatbox placeholder-icon"></i>
+		    <input type="text" ng-model="newComment.message" name="message" placeholder="Write a comment ..." required>
+		  </label>
+		</div>
+
+	</form>
 	
 
   </ion-content>

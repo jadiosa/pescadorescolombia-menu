@@ -13,7 +13,7 @@
 
 	<div class="list card" ng-repeat="item in feeds">
 		<div class="item item-avatar">
-		    <img src="https://graph.facebook.com/{{item.from.facebookid}}/picture">
+		    <img ng-if="item.from.facebookid" ng-src="https://graph.facebook.com/{{item.from.facebookid}}/picture">
 		    <h2>{{item.from.name}}</h2>
 		    <p>{{item.created_time | date:'MMM d, y h:mma'}}</p>
 	  	</div>

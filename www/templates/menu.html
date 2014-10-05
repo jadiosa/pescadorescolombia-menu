@@ -14,7 +14,7 @@
     <ion-content class="has-header">
       <ion-list>
         <a nav-clear menu-close class="item item-avatar" href="#/app/account">
-          <img src="https://graph.facebook.com/{{user.id}}/picture">
+          <img ng-if="user.id"  ng-src="https://graph.facebook.com/{{user.id}}/picture">
            <h2>{{user.name}}</h2>
            <p>{{user.email}}</p>
         </a>

@@ -112,7 +112,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
         alert("al pelo");
       })
       .error(function(data, status) {
-          alert("fallo");
+          alert("fail.addLike");
       });
   };
 
@@ -126,26 +126,28 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   loadFeed();
 })
 
-.controller('FeedDetailCtrl', function($scope, $stateParams, $http, Feed) {
+.controller('FeedDetailCtrl', function($scope, $stateParams, $http, $window, Feed) {
   $scope.feed = Feed.get({id:$stateParams.feedId});
+  $scope.newComment = {};
 
-  $scope.addComment = function(newComment){
+  //TODO: Verificar tamaño del comentario -> No enviar comentarios vacios
+  $scope.addComment = function(){
     feedId = $scope.feed._id;
     var commentData = { 
       'from': {
                 'name': $scope.user.name,
                 "facebookid": $scope.user.id
               },
-      'message': newComment,
+      'message': $scope.newComment.message,
       'created_time' : new Date()
     }
-
     $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData)
       .success(function(data, status) {
-        alert("al pelo");
+        $scope.feed = Feed.get({id:$stateParams.feedId});
+        $scope.newComment = {};
       })
       .error(function(data, status) {
-          alert("fallo");
+          alert("fail.addComment");
       });
   };
 
