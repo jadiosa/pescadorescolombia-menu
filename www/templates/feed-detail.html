@@ -13,18 +13,23 @@
 		      <i class="subdued">({{feed.likes || 0}}) Likes</i>
 		      <i class="subdued">({{feed.comments || 0}}) Comentarios</i>
 		    </p>
+		    <p ng-if="feed.like">
+		    	<i class="subdued">A</i>
+		    	<i ng-repeat="likeItem in feed.like" class=""><b>{{likeItem.from.name}}</b>, </i>
+		    	<i ng-if="feed.like.length == 1" class="subdued">Le gusta esto.</i>
+		    	<i ng-if="feed.like.length > 1" class="subdued">Les gusta esto.</i>
+			</p>
 		</div>
 		<div class="item tabs tabs-secondary tabs-icon-left">
-		    <a class="tab-item" ng-click="addLike(feed._id)">
-		      <i class="icon ion-thumbsup "></i>
-		      Like
+		    <a ng-class="{'tab-item': true,'positive': feed.likedByUser}" ng-click="addOrRemoveLike(feed._id)">
+		      <i class="icon ion-thumbsup"></i>
+		      	Like
 		    </a>
-		    <a class="tab-item" href="#">
+		    <a class="tab-item">
 		      <i class="icon ion-chatbox"></i>
 		      Comment
 		    </a>
 		</div>
-
 		<div class="list">
 		    <div class="item item-avatar" ng-repeat="comment in feed.comment">
 		      <img ng-src="https://graph.facebook.com/{{comment.from.facebookid}}/picture">

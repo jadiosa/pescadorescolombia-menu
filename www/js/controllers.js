@@ -99,7 +99,14 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
     $ionicLoading.hide();
   };
 
-  $scope.addLike = function(feedId){
+  //TODO: Tener una unica funcion para agregar likes
+  $scope.addOrRemoveLike = function(feedId, likedByUser){
+
+    var action ="addlike";
+    if (likedByUser){
+      action = "removeLike"
+    }
+
     var likeData = { 
       'from': {
                 'name': $scope.user.name,
@@ -107,18 +114,18 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
               }
     }
 
-    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addlike/',likeData)
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/'+action+'/',likeData)
       .success(function(data, status) {
-        alert("al pelo");
+        loadFeed();
       })
       .error(function(data, status) {
-          alert("fail.addLike");
-      });
+          alert("fail.addOrRemoveLike");
+      }); 
   };
 
   
   function loadFeed() {
-    $scope.feeds = Feed.query();
+    $scope.feeds = Feed.query({userid:$scope.user.id});
   }
 
   $scope.doRefresh = loadFeed;
@@ -127,10 +134,11 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 })
 
 .controller('FeedDetailCtrl', function($scope, $stateParams, $http, $window, Feed) {
-  $scope.feed = Feed.get({id:$stateParams.feedId});
+  $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
   $scope.newComment = {};
 
   //TODO: Verificar tamaño del comentario -> No enviar comentarios vacios
+  //TODO: cuando se presiona el iocono commnet debe poner en foco el input text para agregar comentarios
   $scope.addComment = function(){
     feedId = $scope.feed._id;
     var commentData = { 
@@ -143,12 +151,36 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
     }
     $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData)
       .success(function(data, status) {
-        $scope.feed = Feed.get({id:$stateParams.feedId});
+        $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
         $scope.newComment = {};
       })
       .error(function(data, status) {
           alert("fail.addComment");
       });
+  };
+
+  //TODO: Tener una unica funcion para agregar likes
+  $scope.addOrRemoveLike = function(feedId){
+
+    var action ="addlike";
+    if ($scope.feed.likedByUser){
+      action = "removeLike"
+    }
+
+    var likeData = { 
+      'from': {
+                'name': $scope.user.name,
+                'facebookid': $scope.user.id
+              }
+    }
+
+    $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/'+action+'/',likeData)
+      .success(function(data, status) {
+        $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
+      })
+      .error(function(data, status) {
+          alert("fail.addOrRemoveLike");
+      }); 
   };
 
 })
