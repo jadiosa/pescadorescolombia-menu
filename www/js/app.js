@@ -8,8 +8,8 @@ angular.module('pescadorescolombia', ['ionic','openfb', 'pescadorescolombia.cont
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
 
-  //OpenFB.init('538828049551803');
-  OpenFB.init('538828049551803','http://192.168.1.102:8100/oauthcallback.html', window.localStorage);
+  OpenFB.init('538828049551803');
+  //OpenFB.init('538828049551803','http://192.168.1.102:8100/oauthcallback.html', window.localStorage);
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
