@@ -1,0 +1,22 @@
+<div class="modal">
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeNewFeed()">Cancelar</button>
+    </div>
+    <h1 class="title">Nueva Actividad</h1>
+    <div class="buttons">
+      <button class="button button-clear button-positive" ng-click="addFeed()">Enviar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="addFeed()">
+      <div class="list">
+        <div class="item item-avatar">
+          <img ng-if="user.id" ng-src="https://graph.facebook.com/{{user.id}}/picture">
+          <textarea ng-model="feedData.message" name="message" placeholder="What's on your mind ..." required></textarea>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</div>
+

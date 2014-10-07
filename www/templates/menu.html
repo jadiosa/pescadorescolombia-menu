@@ -14,7 +14,7 @@
     <ion-content class="has-header">
       <ion-list>
         <a nav-clear menu-close class="item item-avatar" href="#/app/account">
-          <img ng-if="user.id"  ng-src="https://graph.facebook.com/{{user.id}}/picture">
+          <img ng-if="user.id" ng-src="https://graph.facebook.com/{{user.id}}/picture">
            <h2>{{user.name}}</h2>
            <p>{{user.email}}</p>
         </a>
@@ -27,7 +27,7 @@
           <i class="icon icon-baby69"></i>
           Mis Capturas
         </a>
-        <a menu-close nav-clear class="item item-icon-left" ng-click="getFacebookInfo()">
+        <a menu-close nav-clear class="item item-icon-left" ng-click="logout()">
           <i class="icon ion-log-out"></i>
           Salir
         </a>

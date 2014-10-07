@@ -1,48 +1,13 @@
 angular.module('pescadorescolombia.controllers', ['ngResource'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, OpenFB, $state) {
-  
-  /* Login Modal Example */
-  /*
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login-pop.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-  
-  /* End Login Modal Example */
+.controller('AppCtrl', function($scope, $rootScope, OpenFB, $state) {
   
   $scope.logout = function () {
     OpenFB.logout();
     $state.go('app.login');
   };
 
+  /*
   $scope.revokePermissions = function () {
       OpenFB.revokePermissions().then(
           function () {
@@ -52,15 +17,8 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
               alert('Revoke permissions failed');
           });
   };
+  */
 
-  function facebookInfo(){
-    OpenFB.get('/me').success(function (user) {
-      $scope.user = user;
-    }); 
-  }
-
-  $scope.getFacebookInfo = facebookInfo;
-  facebookInfo();
 })
 
 .controller('LoginCtrl', function ($scope, $location, OpenFB) {
@@ -71,7 +29,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
               $location.path('/app/feed');
           },
           function () {
-              alert('OpenFB login failed');
+              //TODO;
           });
     };
 
@@ -88,18 +46,28 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   ];
 })
 
-.controller('FeedCtrl', function($scope, $http, $ionicLoading, $stateParams, Feed) {
+.controller('FeedCtrl', function($scope, $rootScope, $http, $ionicModal, $timeout, $ionicLoading, $stateParams, Feed, OpenFB) {
 
-  $scope.show = function() {
-    $ionicLoading.show({
-      template: 'Loading...'
-    });
-  };
-  $scope.hide = function(){
-    $ionicLoading.hide();
-  };
+  $scope.doRefresh = loadFeed;
 
-  //TODO: Tener una unica funcion para agregar likes
+  function facebookInfo(){
+    OpenFB.get('/me').success(function (user) {
+      $scope.user = user;
+      $rootScope.user = user;
+      loadFeed();
+    }).error(function () {
+      //TODO: 
+    }); 
+  }
+
+  $scope.getFacebookInfo = facebookInfo;
+  facebookInfo();
+
+  function loadFeed() {
+    $scope.feeds = Feed.query({userid:$scope.user.id});
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+  
   $scope.addOrRemoveLike = function(feedId, likedByUser){
 
     var action ="addlike";
@@ -123,14 +91,55 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       }); 
   };
 
+  /* 
+    Feed Modal
+  */
+
+  // Form data for the Feed modal
+  $scope.feedData = {};
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/feed-new.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.closeNewFeed = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the new Feed modal
+  $scope.newFeed = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.addFeed = function() {
+    var feedData = { 
+      'from': {
+                'name': $scope.user.name,
+                "facebookid": $scope.user.id
+              },
+      'message': $scope.feedData.message,
+      'lastModified' : new Date(),
+      'created_time' : new Date()
+    }
+    $http.post('http://pescadorescolombia-api.herokuapp.com/feed/',feedData)
+      .success(function(data, status) {
+        loadFeed();
+        $scope.modal.hide();
+        $scope.feedData = {};
+      })
+      .error(function(data, status) {
+          alert("fail.newFeed");
+      });
+  };
   
-  function loadFeed() {
-    $scope.feeds = Feed.query({userid:$scope.user.id});
-  }
+  /* End Feed Modal */
 
-  $scope.doRefresh = loadFeed;
-
-  loadFeed();
+  
 })
 
 .controller('FeedDetailCtrl', function($scope, $stateParams, $http, $window, Feed) {
@@ -159,7 +168,6 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       });
   };
 
-  //TODO: Tener una unica funcion para agregar likes
   $scope.addOrRemoveLike = function(feedId){
 
     var action ="addlike";
