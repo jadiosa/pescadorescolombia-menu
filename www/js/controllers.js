@@ -1,41 +1,71 @@
 angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 .controller('AppCtrl', function($scope, $rootScope, OpenFB, $state) {
+
+})
+
+.controller('LoginCtrl', function ($scope, $state, $rootScope, $ionicLoading) {
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+      facebookConnectPlugin.getAccessToken(function(result){
+          sucessLogin();
+      },function(){
+          facebookConnectPlugin.login(["email"], function(response) {
+              if (response.authResponse) {
+                  facebookConnectPlugin.getAccessToken(function(result){
+                      sucessLogin();
+                  })
+              } else {
+                  facebookConnectPlugin.showDialog(["email"],function(response){
+                  })
+              }
+          },function(response){
+              $state.go('app.login')
+
+          });
+      })
+  };
+
+  function sucessLogin(){
+
+    $ionicLoading.show({
+            template: 'Cargando...'
+    });
+
+    $rootScope.user = {};  
+    facebookConnectPlugin.api('/me', undefined, function (result) {
+        $rootScope.$apply(function(){
+            $ionicLoading.hide();
+            $rootScope.user.name = result.first_name + " " + result.last_name ;
+            $rootScope.user.email = result.email ;
+            $rootScope.user.id = result.id ;
+            $state.go('app.feed')
+        })
+    }, function (response) {
+        alert('Error->' + JSON.stringify(response))
+
+    });
+  }
   
-  $scope.logout = function () {
-    OpenFB.logout();
-    $state.go('app.login');
-  };
-
-  /*
-  $scope.revokePermissions = function () {
-      OpenFB.revokePermissions().then(
-          function () {
-              $state.go('app.login');
-          },
-          function () {
-              alert('Revoke permissions failed');
-          });
-  };
-  */
-
 })
 
-.controller('LoginCtrl', function ($scope, $location, OpenFB) {
-    $scope.facebookLogin = function () {
+.controller('PlaylistsCtrl', function($scope,$ionicLoading) {
+  
+  $ionicLoading.show({
+      template: 'Cargando...'
+  });
+  $scope.fbProfile = {}
+  facebookConnectPlugin.api('/me', undefined, function (result) {
+      $scope.$apply(function(){
+          $ionicLoading.hide();
+          $scope.fbProfile = result;
+      })
+  }, function (response) {
+      alert('Error->' + JSON.stringify(response))
 
-      OpenFB.login('email,read_stream,publish_stream').then(
-          function () {
-              $location.path('/app/feed');
-          },
-          function () {
-              //TODO;
-          });
-    };
+  });
 
-})
-
-.controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -46,29 +76,30 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   ];
 })
 
-.controller('FeedCtrl', function($scope, $rootScope, $http, $ionicModal, $timeout, $ionicLoading, $stateParams, Feed, OpenFB) {
+.controller('FeedCtrl', function($scope , $ionicLoading, $http, $ionicModal, $timeout, $ionicLoading , Feed) {
+
+
+  $ionicLoading.show({
+            template: 'Cargando...'
+  });
 
   $scope.doRefresh = loadFeed;
 
-  function facebookInfo(){
-    OpenFB.get('/me').success(function (user) {
-      $scope.user = user;
-      $rootScope.user = user;
-      loadFeed();
-    }).error(function () {
-      //TODO: 
-    }); 
-  }
-
-  $scope.getFacebookInfo = facebookInfo;
-  facebookInfo();
-
   function loadFeed() {
-    $scope.feeds = Feed.query({userid:$scope.user.id});
-    $scope.$broadcast('scroll.refreshComplete');
+    Feed.query({userid:$scope.user.id}, function (data){
+          $ionicLoading.hide();
+          $scope.feeds = data;
+          $scope.$broadcast('scroll.refreshComplete');
+    });
   }
-  
+
+  loadFeed();
+
   $scope.addOrRemoveLike = function(feedId, likedByUser){
+
+    $ionicLoading.show({
+            template: 'Cargando...'
+    });
 
     var action ="addlike";
     if (likedByUser){
@@ -84,6 +115,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
     $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/'+action+'/',likeData)
       .success(function(data, status) {
+        $ionicLoading.hide();
         loadFeed();
       })
       .error(function(data, status) {
