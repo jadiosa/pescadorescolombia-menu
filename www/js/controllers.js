@@ -6,6 +6,14 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 .controller('LoginCtrl', function ($scope, $state, $rootScope, $ionicLoading) {
 
+  /**** Datos Quemados para Prueba */
+  $scope.user = {}; 
+  $scope.user.name = 'Jonathan Diosa' ;
+  $scope.user.email = 'quemado@gmail.com' ;
+  $scope.user.id = '10152666156158057' ;
+  /**** Datos Quemados para Prueba */
+
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
       facebookConnectPlugin.getAccessToken(function(result){
@@ -78,14 +86,14 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 .controller('FeedCtrl', function($scope , $ionicLoading, $http, $ionicModal, $timeout, $ionicLoading , Feed) {
 
-
-  $ionicLoading.show({
-            template: 'Cargando...'
-  });
-
   $scope.doRefresh = loadFeed;
 
   function loadFeed() {
+
+    $ionicLoading.show({
+            template: 'Cargando...'
+    });
+
     Feed.query({userid:$scope.user.id}, function (data){
           $ionicLoading.hide();
           $scope.feeds = data;
@@ -174,8 +182,21 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   
 })
 
-.controller('FeedDetailCtrl', function($scope, $stateParams, $http, $window, Feed) {
-  $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
+.controller('FeedDetailCtrl', function($scope, $stateParams, $ionicLoading, $http, $window, Feed) {
+  
+  $ionicLoading.show({
+      template: 'Cargando...'
+  });
+
+  function loadDetailFeed() {
+    Feed.get({id:$stateParams.feedId,userid:$scope.user.id}, function (data){
+            $ionicLoading.hide();
+            $scope.feed = data;
+    });
+  }
+  loadDetailFeed();
+
+
   $scope.newComment = {};
 
   //TODO: Verificar tamaño del comentario -> No enviar comentarios vacios
@@ -190,9 +211,14 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       'message': $scope.newComment.message,
       'created_time' : new Date()
     }
+
+    $ionicLoading.show({
+      template: 'Cargando...'
+    });
+
     $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/addComment/',commentData)
       .success(function(data, status) {
-        $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
+        loadDetailFeed();
         $scope.newComment = {};
       })
       .error(function(data, status) {
@@ -214,9 +240,13 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
               }
     }
 
+    $ionicLoading.show({
+      template: 'Cargando...'
+    });
+
     $http.put('http://pescadorescolombia-api.herokuapp.com/feed/'+feedId+'/'+action+'/',likeData)
       .success(function(data, status) {
-        $scope.feed = Feed.get({id:$stateParams.feedId,userid:$scope.user.id});
+        loadDetailFeed();
       })
       .error(function(data, status) {
           alert("fail.addOrRemoveLike");

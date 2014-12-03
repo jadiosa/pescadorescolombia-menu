@@ -1,16 +1,16 @@
-<ion-view title="Actividad">
+<ion-view title="Actividad" class="background-image">
 	<ion-content class="has-header" >
 	<div class="list card">
-		<div class="item item-avatar">
+		<div class="item item-avatar" style="border-bottom:none;padding-bottom:0px">
 		    <img ng-if="feed.from.facebookid" ng-src="https://graph.facebook.com/{{feed.from.facebookid}}/picture">
 		    <h2>{{feed.from.name}}</h2>
 		    <p>{{feed.created_time | date:'MMM d, y h:mma'}}</p>
 	  	</div>
-		<div class="item item-body">
+		<div class="item item-body" style="border-top:none;padding-top:0px">
 		    <p>{{feed.message}}</p>
 		    <img ng-if="item.picture" ng-src="{{ feed.picture }}"/>
 		    <p>
-		      <i class="subdued">({{feed.likes || 0}}) Likes</i>
+		      <i class="subdued">({{feed.likes || 0}}) Me gusta</i>
 		      <i class="subdued">({{feed.comments || 0}}) Comentarios</i>
 		    </p>
 		    <p ng-if="feed.like">
@@ -20,18 +20,18 @@
 		    	<i ng-if="feed.like.length > 1" class="subdued">Les gusta esto.</i>
 			</p>
 		</div>
-		<div class="item tabs tabs-secondary tabs-icon-left">
+		<div class="item tabs tabs-secondary tabs-icon-left" style="background:#f8f8f8">
 		    <a ng-class="{'tab-item': true,'positive': feed.likedByUser}" ng-click="addOrRemoveLike(feed._id)">
 		      <i class="icon ion-thumbsup"></i>
-		      	Like
+		      	Me gusta
 		    </a>
 		    <a class="tab-item">
 		      <i class="icon ion-chatbox"></i>
-		      Comment
+		      Comentar
 		    </a>
 		</div>
-		<div class="list">
-		    <div class="item item-avatar" ng-repeat="comment in feed.comment">
+		<div class="list" ng-if="feed.comment">
+		    <div class="item item-avatar" ng-repeat="comment in feed.comment" style="border-bottom:none">
 		      <img ng-src="https://graph.facebook.com/{{comment.from.facebookid}}/picture">
 		      <h2>{{comment.from.name}}</h2>
 		      <p>{{comment.message}}</p>
