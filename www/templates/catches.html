@@ -1,4 +1,4 @@
-<ion-view title="Mis Capturas" class="background-image" hide-back-button="true">
+<ion-view title="Mis Capturas" class="background-image3" hide-back-button="true">
 
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
@@ -7,10 +7,11 @@
         <button class="button button-icon ion-ios7-plus-empty"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-
-	<div class="list">
-		<a class="item item-icon-right" ng-repeat="catch in catches" href="#/app/catch/{{catch.title}}">
-			{{catch.fish}} ({{catch.weight}}lbs) - {{catch.place}}
+	<div class="list" style="opacity: 0.90;">
+		<a class="item item-thumbnail-left" ng-repeat="catch in catches" href="#/app/catch/{{catch.title}}">
+			<img src="img/DSC_0331.jpg">
+      <h2>{{catch.fish}} ({{catch.weight}}lbs)</h2>
+      <p>{{catch.place}} - 3 de enero de 2014</p>
 			<i ng-if="catch.tag" class="icon ion-ios7-star-outline"></i>
 			<span ng-if="catch.tag" class="item-note">{{catch.tag}}</span>
 		</a>

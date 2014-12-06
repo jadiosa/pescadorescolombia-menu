@@ -255,12 +255,20 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 })
 
-.controller('CatchesCtrl', function($scope, $resource) {
+.controller('CatchesCtrl', function($scope, $ionicLoading, $resource) {
+ $ionicLoading.show({
+    template: 'Cargando...'
+  });
   var catches = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/');
-  $scope.catches = catches.query({user: 'Jonathan'});
+
+  catches.query({user: 'Jonathan'}, function (data){
+          $ionicLoading.hide();
+          $scope.catches = data;
+          $scope.$broadcast('scroll.refreshComplete');
+    });
 })
 
-.controller('CatchDetailCtrl', function($scope, $stateParams, $resource) {
+.controller('CatchDetailCtrl', function($scope, $stateParams,$ionicLoading, $resource) {
   var catchDetail = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/:title');
   $scope.catchDetail = catchDetail.get({user: 'Jonathan', title: $stateParams.catchId});
 })

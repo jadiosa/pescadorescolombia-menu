@@ -8,12 +8,11 @@
   </ion-pane>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Pescadores Colombia</h1>
-    </header>
-    <ion-content class="has-header">
+    <ion-content>
+      <br />
+      <br />
       <ion-list>
-        <a nav-clear menu-close class="item item-avatar" href="#/app/account">
+        <a nav-clear menu-close class="item item-avatar" style="border:none" href="#/app/account">
           <img ng-if="user.id" ng-src="https://graph.facebook.com/{{user.id}}/picture">
            <h2>{{user.name}}</h2>
            <p>{{user.email}}</p>
