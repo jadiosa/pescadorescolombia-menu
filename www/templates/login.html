@@ -1,27 +1,31 @@
 <ion-view title="PescadoresColombia" class="background-image" hide-back-button="true" hide-nav-bar="true">
 
     <ion-content has-header="true">
-        <div class="list list-inset" style="background-color:#fff">
+        <br />
+        <div class="list list-inset" style="background:none">
             <center>
                 <div class="" style="border:none;margin-top:10px;">
                     <img src="img/Logo_PescadoresColombia.png"/>
                 </div>
             </center>
-            <div class="item item-toggle"  style="border:none;">
+            <br />
+        </div>
+        <div class="list list-inset" style="background:none">
+            <center>
+                <button class="button button-block button-light"  ng-click="doLogin()">
+                    <i class="icon ion-social-facebook positive "></i>
+                    &nbsp;Ingresar con Facebook
+                </button>
+            </center>
+            <div class="item item-toggle" style="background:none;border:none;margin-left:35px;margin-right:35px">
                 Recordarme:
-                <label class="toggle toggle-assertive">
+                <label class="toggle toggle-positive">
                    <input type="checkbox" checked="true">
                    <div class="track">
                      <div class="handle"></div>
                    </div>
                 </label>
             </div>
-        </div>
-        <div class="list list-inset" style="background:none">
-            <button class="button button-block button-positive"  ng-click="doLogin()">
-                <i class="icon ion-social-facebook "></i>
-                &nbsp;Ingresar con Facebook
-            </button>
         </div>
     </ion-content>
 
