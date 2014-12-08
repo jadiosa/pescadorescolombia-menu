@@ -255,7 +255,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 })
 
-.controller('CatchesCtrl', function($scope, $ionicLoading, $resource) {
+.controller('CatchesCtrl', function($scope, $ionicLoading, $resource, Camera) {
  $ionicLoading.show({
     template: 'Cargando...'
   });
@@ -265,7 +265,17 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
           $ionicLoading.hide();
           $scope.catches = data;
           $scope.$broadcast('scroll.refreshComplete');
+  });
+
+  $scope.getPhoto = function() {
+    Camera.getPicture().then(function(imageURI) {
+      console.log(imageURI);
+      $scope.urlPhoto = imageURI;
+    }, function(err) {
+      console.err(err);
     });
+  };
+
 })
 
 .controller('CatchDetailCtrl', function($scope, $stateParams,$ionicLoading, $resource) {
