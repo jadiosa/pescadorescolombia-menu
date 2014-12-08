@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?dwjgq9');
-	src:url('fonts/icomoon.eot?#iefixdwjgq9') format('embedded-opentype'),
-		url('fonts/icomoon.woff?dwjgq9') format('woff'),
-		url('fonts/icomoon.ttf?dwjgq9') format('truetype'),
-		url('fonts/icomoon.svg?dwjgq9#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?-2pj0o2');
+	src:url('fonts/icomoon.eot?#iefix-2pj0o2') format('embedded-opentype'),
+		url('fonts/icomoon.woff?-2pj0o2') format('woff'),
+		url('fonts/icomoon.ttf?-2pj0o2') format('truetype'),
+		url('fonts/icomoon.svg?-2pj0o2#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,15 +23,60 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-rss33:before {
-	content: "\e601";
-}
-.icon-fishing2:before {
-	content: "\e602";
-}
-.icon-rss14:before {
-	content: "\e603";
-}
 .icon-baby69:before {
 	content: "\e600";
+}
+.icon-fish1:before {
+	content: "\e601";
+}
+.icon-fish4:before {
+	content: "\e602";
+}
+.icon-fish46:before {
+	content: "\e603";
+}
+.icon-fish51:before {
+	content: "\e604";
+}
+.icon-fisher:before {
+	content: "\e605";
+}
+.icon-fisher1:before {
+	content: "\e606";
+}
+.icon-fishing:before {
+	content: "\e607";
+}
+.icon-fishing1:before {
+	content: "\e608";
+}
+.icon-fishing2:before {
+	content: "\e609";
+}
+.icon-fishing6:before {
+	content: "\e60a";
+}
+.icon-fishing11:before {
+	content: "\e60b";
+}
+.icon-hook:before {
+	content: "\e60c";
+}
+.icon-japan25:before {
+	content: "\e60d";
+}
+.icon-pisces:before {
+	content: "\e60e";
+}
+.icon-pisces4:before {
+	content: "\e60f";
+}
+.icon-pisces7:before {
+	content: "\e610";
+}
+.icon-rss14:before {
+	content: "\e611";
+}
+.icon-sitting3:before {
+	content: "\e612";
 }
