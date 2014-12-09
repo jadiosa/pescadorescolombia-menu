@@ -8,6 +8,14 @@ angular.module('pescadorescolombia.services', ['ngResource'])
     });
 })
 
+.factory('Catches', function ($resource) {
+    return $resource('http://pescadorescolombia-api.herokuapp.com/catches/:id',{id:'@_id'},{
+        update: {
+            method: 'PUT'
+        }
+    });
+})
+
 .factory('Camera', ['$q', function($q) {
 
   return {

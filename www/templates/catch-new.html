@@ -1,0 +1,62 @@
+<div class="modal">
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeNewCatch()">Cancelar</button>
+    </div>
+    <h1 class="title">Nueva Captura</h1>
+    <div class="buttons">
+      <button class="button button-clear button-positive" ng-click="addFeed()">Enviar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="addCatch()">
+      <div class="list">
+        <br>
+        <center>
+          <img src="{{urlPhoto1}}" ng-click="getPhoto('photo1')" style="max-width: 45%;">
+          <img src="{{urlPhoto2}}" ng-click="getPhoto('photo2')" style="max-width: 45%;">
+        </center>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Nombre del Pez</span>
+          <input type="text" placeholder="Mojarra" ng-model="catchData.fishName" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Peso (lbs)</span>
+          <input type="number" placeholder="5" ng-model="catchData.weight">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Tamaño (cms)</span>
+          <input type="number" placeholder="40" ng-model="catchData.length">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Fecha</span>
+          <input type="date" ng-model="catchData.date">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Lugar</span>
+          <input type="text" placeholder="Estacion" ng-model="catchData.placeName">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Coordenadas</span>
+          <input type="text" ng-model="catchData.placeLocation">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <div class="item item-toggle" style="background:none;border:none;margin-left:0px;padding-left:0px">
+              <span class="input-label">Sigue Nandado ?</span>
+              <label class="toggle toggle-positive">
+                 <input type="checkbox" checked="true">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+              </label>
+          </div>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Notas</span>
+          <input type="text" ng-model="catchData.message">
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</div>
+

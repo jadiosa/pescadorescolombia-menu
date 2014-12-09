@@ -10,7 +10,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   $scope.user = {}; 
   $scope.user.name = 'Jonathan Diosa' ;
   $scope.user.email = 'quemado@gmail.com' ;
-  $scope.user.id = '10152666156158057' ;
+  $scope.user.id = '10152857606228057' ;
   /**** Datos Quemados para Prueba */
 
 
@@ -255,32 +255,107 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
 
 })
 
-.controller('CatchesCtrl', function($scope, $ionicLoading, $resource, Camera) {
- $ionicLoading.show({
+.controller('CatchesCtrl', function($scope, $ionicLoading, $resource, $http, $ionicModal, Camera) {
+
+  function loadCatches() {
+   $ionicLoading.show({
     template: 'Cargando...'
   });
-  var catches = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/');
 
-  catches.query({user: 'Jonathan'}, function (data){
-          $ionicLoading.hide();
-          $scope.catches = data;
-          $scope.$broadcast('scroll.refreshComplete');
-  });
+  $http.get('http://pescadorescolombia-api.herokuapp.com/catches/user/'+$scope.user.id)
+    .success(function(data, status) {
+      $ionicLoading.hide();
+      $scope.catches = data;
+    })
+    .error(function(data, status) {
+        alert("catches.find");
+    });
+  }
+  loadCatches();
 
-  $scope.getPhoto = function() {
+  $scope.getPhoto = function(imgId) {
     Camera.getPicture().then(function(imageURI) {
-      console.log(imageURI);
-      $scope.urlPhoto = imageURI;
+      
+      if(imgId == 'photo1')
+        $scope.urlPhoto1 = imageURI;
+      else 
+        $scope.urlPhoto2 = imageURI;
+
     }, function(err) {
       console.err(err);
+      alert("errr");
     });
   };
 
+  /* 
+    Catch Modal
+  */
+
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/catch-new.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.closeNewCatch = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the new Feed modal
+  $scope.newCatch = function() {
+    // Form data for the Feed modal
+    $scope.catchData = {};
+    $scope.urlPhoto1 = 'img/addPhoto.png';
+    $scope.urlPhoto2 = 'img/addPhoto.png';
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.addCatch = function() {
+    var catchData = { 
+      'user': {
+                'name': $scope.user.name,
+                "facebookid": $scope.user.id
+              },
+      'fishName': $scope.catchData.fishName,
+      'weight': $scope.catchData.weight,
+      'placeName': $scope.catchData.placeName,
+      'placeLocation': $scope.catchData.placeLocation,
+      'date': $scope.catchData.date,
+      'length': $scope.catchData.length,
+      'released': $scope.catchData.released,
+      'message': $scope.catchData.message,
+      'tags': $scope.catchData.tags,
+    }
+
+    $http.post('http://pescadorescolombia-api.herokuapp.com/catches/',feedData)
+      .success(function(data, status) {
+        loadCatches();
+        $scope.modal.hide();
+        $scope.catchData = {};
+      })
+      .error(function(data, status) {
+          alert("fail.newCatch");
+      });
+  };
+  
+  /* End Catch Modal */
+
 })
 
-.controller('CatchDetailCtrl', function($scope, $stateParams,$ionicLoading, $resource) {
-  var catchDetail = $resource('http://pescadores-colombia-api.herokuapp.com/fishinglog/:user/:title');
-  $scope.catchDetail = catchDetail.get({user: 'Jonathan', title: $stateParams.catchId});
+.controller('CatchDetailCtrl', function($scope, $stateParams,$ionicLoading, $resource, Catches) {
+
+  $ionicLoading.show({
+    template: 'Cargando...'
+  });
+
+  Catches.get({id:$stateParams.catchId,userid:$scope.user.id}, function (data){
+          $ionicLoading.hide();
+          $scope.catchDetail = data;
+  });
 })
 
 
