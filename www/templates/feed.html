@@ -24,14 +24,14 @@
 		    <p>{{item.message}}</p>
 		    <img ng-if="item.picture" ng-src="{{ item.picture }}"/>
 		    <p>
-		      <a href="#/app/feed/{{item._id}}" class="subdued">({{item.likes || 0}}) Me gusta</a>
+		      <a href="#/app/feed/{{item._id}}" class="subdued">({{item.likes || 0}}) Bacano</a>
 		      <a href="#/app/feed/{{item._id}}" class="subdued">({{item.comments || 0}}) Comentarios</a>
 		    </p>
 		</div>
 		<div class="item tabs tabs-secondary tabs-icon-left" style="background:#f8f8f8">
 		    <a ng-class="{'tab-item': true,'positive': item.likedByUser}" ng-click="addOrRemoveLike(item._id,item.likedByUser)">
 		      <i class="icon ion-thumbsup "></i>
-		      Me gusta
+		      Bacano
 		    </a>
 		    <a class="tab-item" href="#/app/feed/{{item._id}}">
 		      <i class="icon ion-chatbox"></i>
