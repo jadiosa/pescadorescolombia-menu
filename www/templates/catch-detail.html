@@ -1,46 +1,70 @@
 <ion-view title="{{catchDetail.fishName}} {{catchDetail.weight}}lbs - {{catchDetail.length}}cms">
 	<ion-content class="has-header" >
 		<div class="list">
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Pez</p></b></span>
-		    <span class="input-label">{{catchDetail.fishName}}</span>
-		    <i class="icon icon-baby69"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Peso</p></b></span>
-		    <span class="input-label">{{catchDetail.weight}}</span>
-		     <i class="icon ion-ios7-speedometer-outline"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Tamaño</p></b></span>
-		    <span class="input-label">{{catchDetail.length}}</span>
-		    <i class="icon ion-arrow-resize"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Lugar</p></b></span>
-		    <span class="input-label">{{catchDetail.placeName}}</span>
-		    <i class="icon ion-ios7-location-outline"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Fecha</p></b></span>
-		    <span class="input-label">{{catchDetail.date | date:'MMM d'}}</span>
-		     <i class="icon ion-ios7-clock-outline"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Hora</p></b></span>
-		    <span class="input-label">{{catchDetail.time}}</span>
-		     <i class="icon ion-ios7-clock-outline"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Comentarios</p></b></span>
-		    <span class="input-label">{{catchDetail.message}}</span>
-		    <i class="icon ion-ios7-chatboxes-outline"></i>
-		  </label>
-		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Etiquetas</p></b></span>
-		    <i class="icon ion-ios7-star-outline"></i>
-	    	<span ng-if="catchDetail.tags" ng-repeat="tag in catchDetail.tags" class="energized">{{tag.name}} /&nbsp;</span>
-		  </label>
+			<center>
+	          <img src="{{catchDetail.images.main}}"  style="max-width: 45%;">
+	          <img src="{{catchDetail.images.secondary}}" style="max-width: 45%;">
+	        </center>
+			<label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Especie</span>
+	          <p class="input">{{catchDetail.fishName}}</p>
+	          <i class="icon icon-fish51 energized" style="font-size: 28px"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Peso (lbs)</span>
+	          <p class="input">{{catchDetail.weight}}</p>
+	          <i class="icon ion-speedometer energized" style="font-size: 28px"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Tamaño (cms)</span>
+	          <p class="input">{{catchDetail.length}}</p>
+	          <i class="icon ion-arrow-resize  positive"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Señuelo</span>
+	          <p class="input">{{catchDetail.lure}}</p>
+	          <i class="icon icon-fish4 positive"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Fecha</span>
+	          <p class="input">{{catchDetail.date}}</p>
+	          <i class="icon ion-clock assertive"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Hora</span>
+	          <p class="input">{{catchDetail.time}}</p>
+	          <i class="icon ion-clock assertive"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Nombre del Lugar</span>
+	          <p class="input">{{catchDetail.placeName}}</p>
+	          <i class="icon ion-map energized"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Sigue Nadando ?</span>
+	          <p class="input">{{catchDetail.released}}</p>
+	          <i ng-if="catchDetail.released" class="icon icon-pisces7 energized"></i>
+	        </label>
+	        <label class="item item-input item-icon-right item-stacked-label">
+	          <span class="input-label">Notas</span>
+	          <p class="input">{{catchDetail.message}}</p>
+	          <i class="icon ion-ios7-chatbubble positive"></i>
+	        </label>
+			<label class="item item-icon-right item-stacked-label">
+				<span><b><p>Etiquetas</p></b></span>
+				<i class="icon ion-ios7-star-outline"></i>
+				<span ng-if="catchDetail.tags" ng-repeat="tag in catchDetail.tags" class="energized">{{tag.name}} /&nbsp;</span>
+			</label>
+	        <label class="item item-input item-icon-right item-stacked-label" style="">
+	          <span class="input-label">Coordenadas del Lugar</span>
+	          <p class="input">
+	          	Latitud: {{catchDetail.placeLatitude}} 
+	          	<br> 
+	          	Longitud: {{catchDetail.placeLongitude}}
+	          </p>
+	          <i class="icon ion-location assertive"></i>
+	        </label>
 		</div>
+		<div id="map" data-tap-disabled="true"></div>
 	</ion-content>
 </ion-view>
