@@ -271,6 +271,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
         alert("catches.find");
     });
   }
+
   loadCatches();
 
   $scope.getPhoto = function(imgId) {
@@ -285,6 +286,49 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       console.err(err);
       alert("errr");
     });
+  };
+  
+  $scope.getMyPosition = function() {
+    
+    $ionicLoading.show({
+      template: 'Cargando...'
+    });
+
+    var onSuccess = function(position) {
+      var longitude = position.coords.longitude;
+      var latitude = position.coords.latitude;
+      var latLong = new google.maps.LatLng(latitude, longitude);
+
+      var mapOptions = {
+          center: latLong,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+      var marker = new google.maps.Marker({
+            position: latLong,
+            map: map,
+            title: 'my location'
+        });
+
+      $scope.$apply(function(){
+            $ionicLoading.hide();
+            $scope.catchData.placeLatitude = position.coords.latitude;
+            $scope.catchData.placeLongitude = position.coords.longitude;
+      });
+    };
+
+  // onError Callback receives a PositionError object
+  //
+  function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+  }
+
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    
   };
 
   /* 
@@ -323,9 +367,11 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       'fishName': $scope.catchData.fishName,
       'weight': $scope.catchData.weight,
       'placeName': $scope.catchData.placeName,
-      'placeLocation': $scope.catchData.placeLocation,
+      'placeLongitude': $scope.catchData.placeLongitude,
+      'placeLatitude': $scope.catchData.placeLatitude,
       'date': $scope.catchData.date,
       'length': $scope.catchData.length,
+      'lure': $scope.catchData.lure,
       'released': $scope.catchData.released,
       'message': $scope.catchData.message,
       'tags': $scope.catchData.tags,

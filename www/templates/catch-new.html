@@ -28,35 +28,49 @@
           <span class="input-label">Tamaño (cms)</span>
           <input type="number" placeholder="40" ng-model="catchData.length">
         </label>
+        <label class="item item-input item-select" s>
+          <div class="input-label">
+            Señuelo
+          </div>
+          <select>
+            <option>Cuchara</option>
+            <option>Spinner</option>
+            <option>Crank bait</option>
+            <option>Blando</option>
+          </select>
+        </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Fecha</span>
           <input type="date" ng-model="catchData.date">
         </label>
         <label class="item item-input item-stacked-label">
-          <span class="input-label">Lugar</span>
+          <span class="input-label">Nombre del Lugar</span>
           <input type="text" placeholder="Estacion" ng-model="catchData.placeName">
         </label>
-        <label class="item item-input item-stacked-label">
-          <span class="input-label">Coordenadas</span>
-          <input type="text" ng-model="catchData.placeLocation">
-        </label>
-        <label class="item item-input item-stacked-label">
-          <div class="item item-toggle" style="background:none;border:none;margin-left:0px;padding-left:0px">
-              <span class="input-label">Sigue Nandado ?</span>
-              <label class="toggle toggle-positive">
-                 <input type="checkbox" checked="true">
-                 <div class="track">
-                   <div class="handle"></div>
-                 </div>
-              </label>
+        <label class="item item-input item-select" s>
+          <div class="input-label">
+            Sigue nadando ?
           </div>
+          <select>
+            <option selected>Si</option>
+            <option>No</option>
+          </select>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Notas</span>
           <input type="text" ng-model="catchData.message">
         </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Coordenadas del Lugar</span>
+          <span class="item" ng-if="catchData.placeLatitude" style="border:none;font-size:11px;padding:5px 2px">Latitud: {{catchData.placeLatitude}} <br> Longitud: {{catchData.placeLongitude}}</span>
+        </label>
+        <a class="item positive" ng-click ="getMyPosition()" style="border:none;font-size:14px;padding-top:0px;margin-top:0px">
+          <i class="icon ion-navigate " ></i>
+          Obtener ubicacion
+        </a>
       </div>
     </form>
+    <div id="map" data-tap-disabled="true"></div>
   </ion-content>
 </div>
 
