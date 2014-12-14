@@ -5,63 +5,75 @@
     </div>
     <h1 class="title">Nueva Captura</h1>
     <div class="buttons">
-      <button class="button button-clear button-positive" ng-click="addFeed()">Enviar</button>
+      <button class="button button-clear button-positive" ng-click="addCatch()">Enviar</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="addCatch()">
+    <form>
       <div class="list">
         <br>
         <center>
           <img src="{{urlPhoto1}}" ng-click="getPhoto('photo1')" style="max-width: 45%;">
           <img src="{{urlPhoto2}}" ng-click="getPhoto('photo2')" style="max-width: 45%;">
         </center>
-        <label class="item item-input item-stacked-label">
-          <span class="input-label">Nombre del Pez</span>
-          <input type="text" placeholder="Mojarra" ng-model="catchData.fishName" required>
+        <label class="item item-input item-icon-right item-stacked-label">
+          <span class="input-label">Especie</span>
+          <input type="text" placeholder="Mojarra" ng-model="catchData.fishName" id="fishName" required>
+          <i class="icon icon-fish51 energized" style="font-size: 28px"></i>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Peso (lbs)</span>
           <input type="number" placeholder="5" ng-model="catchData.weight">
+          <i class="icon ion-speedometer positive"></i>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Tamaño (cms)</span>
           <input type="number" placeholder="40" ng-model="catchData.length">
+          <i class="icon ion-arrow-resize  positive"></i>
         </label>
         <label class="item item-input item-select" s>
           <div class="input-label">
             Señuelo
           </div>
-          <select>
+          <select ng-model="catchData.lure">
             <option>Cuchara</option>
             <option>Spinner</option>
             <option>Crank bait</option>
             <option>Blando</option>
           </select>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-icon-right item-input item-stacked-label">
           <span class="input-label">Fecha</span>
           <input type="date" ng-model="catchData.date">
+          <i class="icon ion-clock assertive"></i>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-icon-right item-input item-stacked-label">
+          <span class="input-label">Hora</span>
+          <input type="time" ng-model="catchData.time">
+          <i class="icon ion-clock assertive"></i>
+        </label>
+        <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Nombre del Lugar</span>
           <input type="text" placeholder="Estacion" ng-model="catchData.placeName">
+          <i class="icon ion-map energized"></i>
         </label>
         <label class="item item-input item-select" s>
           <div class="input-label">
             Sigue nadando ?
           </div>
-          <select>
+          <select ng-model="catchData.released">
             <option selected>Si</option>
             <option>No</option>
           </select>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Notas</span>
           <input type="text" ng-model="catchData.message">
+          <i class="icon ion-ios7-chatbubble positive"></i>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Coordenadas del Lugar</span>
+          <i class="icon ion-location assertive"></i>
           <span class="item" ng-if="catchData.placeLatitude" style="border:none;font-size:11px;padding:5px 2px">Latitud: {{catchData.placeLatitude}} <br> Longitud: {{catchData.placeLongitude}}</span>
         </label>
         <a class="item positive" ng-click ="getMyPosition()" style="border:none;font-size:14px;padding-top:0px;margin-top:0px">

@@ -22,8 +22,13 @@
 		    <i class="icon ion-ios7-location-outline"></i>
 		  </label>
 		  <label class="item item-icon-right item-stacked-label">
-		    <span><b><p>Fecha y Hora</p></b></span>
-		    <span class="input-label">{{catchDetail.date | date:'MMM d, y h:mma'}}</span>
+		    <span><b><p>Fecha</p></b></span>
+		    <span class="input-label">{{catchDetail.date | date:'MMM d'}}</span>
+		     <i class="icon ion-ios7-clock-outline"></i>
+		  </label>
+		  <label class="item item-icon-right item-stacked-label">
+		    <span><b><p>Hora</p></b></span>
+		    <span class="input-label">{{catchDetail.time}}</span>
 		     <i class="icon ion-ios7-clock-outline"></i>
 		  </label>
 		  <label class="item item-icon-right item-stacked-label">

@@ -155,7 +155,6 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form
   $scope.addFeed = function() {
     var feedData = { 
       'from': {
@@ -320,8 +319,6 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       });
     };
 
-  // onError Callback receives a PositionError object
-  //
   function onError(error) {
       alert('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
@@ -335,8 +332,6 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
     Catch Modal
   */
 
-
-  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/catch-new.html', {
     scope: $scope
   }).then(function(modal) {
@@ -346,19 +341,21 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
   // Triggered in the login modal to close it
   $scope.closeNewCatch = function() {
     $scope.modal.hide();
+    //Mostrar formulario arriba cuando se abre de nuevo el modal
   };
 
   // Open the new Feed modal
   $scope.newCatch = function() {
-    // Form data for the Feed modal
-    $scope.catchData = {};
-    $scope.urlPhoto1 = 'img/addPhoto.png';
-    $scope.urlPhoto2 = 'img/addPhoto.png';
     $scope.modal.show();
+    clearCatchForm();
   };
 
   // Perform the login action when the user submits the login form
   $scope.addCatch = function() {
+
+    //TODO: validar campos obligatorios del formulario
+    //TODO: Unir hora y fecha 
+
     var catchData = { 
       'user': {
                 'name': $scope.user.name,
@@ -370,6 +367,7 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       'placeLongitude': $scope.catchData.placeLongitude,
       'placeLatitude': $scope.catchData.placeLatitude,
       'date': $scope.catchData.date,
+      'time': $scope.catchData.time,
       'length': $scope.catchData.length,
       'lure': $scope.catchData.lure,
       'released': $scope.catchData.released,
@@ -377,7 +375,8 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       'tags': $scope.catchData.tags,
     }
 
-    $http.post('http://pescadorescolombia-api.herokuapp.com/catches/',feedData)
+    console.log(catchData);
+    /*$http.post('http://pescadorescolombia-api.herokuapp.com/catches/',catchData)
       .success(function(data, status) {
         loadCatches();
         $scope.modal.hide();
@@ -385,9 +384,24 @@ angular.module('pescadorescolombia.controllers', ['ngResource'])
       })
       .error(function(data, status) {
           alert("fail.newCatch");
-      });
+      });*/
   };
-  
+
+  function clearCatchForm(){
+    //Cleaning form data
+    $scope.catchData = {};
+    $scope.urlPhoto1 = 'img/addPhoto.png';
+    $scope.urlPhoto2 = 'img/addPhoto.png';
+
+    //Focus on first element
+    document.getElementById("fishName").focus();
+
+    //Cleaning the map
+    document.getElementById("map").innerHTML = '';
+    document.getElementById("map").style.background = 'none';
+
+  }
+
   /* End Catch Modal */
 
 })
