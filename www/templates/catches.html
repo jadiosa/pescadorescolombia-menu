@@ -10,7 +10,8 @@
 
 	<div class="list" style="opacity: 1;margin:5px">
 		<a class="item item-thumbnail-left" ng-repeat="catch in catches" href="#/app/catch/{{catch._id}}">
-			<img src="img/noImage.png">
+			<img ng-if="catch.images.main" src="{{catch.images.main}}">
+      <img ng-if="!catch.images.main" src="img/noImage.png">
       <i ng-if="catch.released" class="item-note icon icon-pisces7 energized" style="font-size: 25px"></i>
       <h2>{{catch.fishName}} {{catch.weight}}lbs - {{catch.length}}cms</h2>
       <p>

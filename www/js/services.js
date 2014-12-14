@@ -27,7 +27,14 @@ angular.module('pescadorescolombia.services', ['ngResource'])
         q.resolve(result);
       }, function(err) {
         q.reject(err);
-      }, {sourceType : Camera.PictureSourceType.PHOTOLIBRARY});
+      }, 
+        {
+          sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+          encodingType: Camera.EncodingType.JPEG,
+          destinationType: Camera.DestinationType.FILE_URI,
+          quality: 45
+        }
+      );
 
       return q.promise;
     }
