@@ -10,31 +10,17 @@
             </center>
             <br />
         </div>
-        <!--<div class="list list-inset" style="background:none">
-            <center>
-                <button class="button button-block button-light"  ng-click="doLogin()">
-                    <i class="icon ion-social-facebook positive "></i>
-                    &nbsp;Ingresar con Facebook
-                </button>
-            </center>
-            <div class="item item-toggle" style="background:none;border:none;margin-left:35px;margin-right:35px">
-                Recordarme:
-                <label class="toggle toggle-positive">
-                   <input type="checkbox" checked="true">
-                   <div class="track">
-                     <div class="handle"></div>
-                   </div>
-                </label>
-            </div>
-        </div>-->
     </ion-content>
     <div class="bar bar-footer" style="background:none;padding-top:0px;padding-bottom:0px;margin-bottom:10px">
-        <button class="button button-block button-light" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;font-size:16px" ng-click="doLogin()">
-            <i class="icon ion-social-facebook positive "></i>
-            &nbsp;Ingresar con Facebook
-        </button>
-    </div>  
-
-
-
+        <div class="button-bar">
+            <a class="button button-block button-light item item-icon-left" style="padding-top:5px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;margin-right:5px;font-size:14px;color: #000" ng-click="doLogin()">
+                <i class="icon ion-social-facebook positive "></i>
+                &nbsp;&nbsp;Ingresar&nbsp;&nbsp;
+            </a>
+            <a class="button button-block button-light item item-icon-left" style="padding-top:5px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;margin-left:5px;font-size:14px;color: #000" ng-click="doRegister()">
+                 <i class="icon ion-person-add assertive"></i>
+                &nbsp;&nbsp;Registrarse
+            </a>
+        </div>
+    </div>
 </ion-view>
