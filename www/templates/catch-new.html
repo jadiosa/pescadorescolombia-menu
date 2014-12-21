@@ -16,6 +16,9 @@
           <img src="{{urlMainPhoto}}" ng-click="getPhoto('MainPhoto')" style="max-width: 45%;">
           <img src="{{urlSecondaryPhoto}}" ng-click="getPhoto('SecondaryPhoto')" style="max-width: 45%;">
         </center>
+        <center>
+          <span ng-if="uploadPercentage" class="positive">Cargando ... {{uploadPercentage}}%</span>
+        </center>
         <label class="item item-input item-icon-right item-stacked-label">
           <span class="input-label">Especie</span>
           <input type="text" placeholder="Mojarra" ng-model="catchData.fishName" id="fishName" required>
