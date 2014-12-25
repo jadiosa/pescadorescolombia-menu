@@ -11,33 +11,33 @@
   <ion-content>
     <form>
       <div class="list">
-        <br>
         <center>
-          <img src="{{urlMainPhoto}}" ng-click="getPhoto('MainPhoto')" style="max-width: 45%;">
-          <img src="{{urlSecondaryPhoto}}" ng-click="getPhoto('SecondaryPhoto')" style="max-width: 45%;">
+          <img src="{{urlMainPhoto}}" ng-click="getPhoto('MainPhoto')" style="max-width: 45%;margin-right:8px;">
+          <img src="{{urlSecondaryPhoto}}" ng-click="getPhoto('SecondaryPhoto')" style="max-width: 45%;margin-left:8px;">
         </center>
         <center>
           <span ng-if="uploadPercentage" class="positive">Cargando ... {{uploadPercentage}}%</span>
         </center>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Especie</span>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Especie</span>
           <input type="text" placeholder="Mojarra" ng-model="catchData.fishName" id="fishName" required>
           <i class="icon icon-fish51 energized" style="font-size: 28px"></i>
         </label>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Peso (lbs)</span>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Peso (lbs)</span>
           <input type="number" placeholder="5" ng-model="catchData.weight">
-          <i class="icon ion-speedometer positive"></i>
+          <i class="icon ion-speedometer energized"></i>
         </label>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Tamaño (cms)</span>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Tamaño (cms)</span>
           <input type="number" placeholder="40" ng-model="catchData.length">
           <i class="icon ion-arrow-resize  positive"></i>
         </label>
-        <label class="item item-input item-select" s>
-          <div class="input-label">
+        <label class="item item-input item-icon-left item-select" s>
+          <div class="input-label" style="margin-left: 35px">
             Señuelo
           </div>
+          <i class="icon icon-fishing6 positive"></i>
           <select ng-model="catchData.lure">
             <option>Cuchara</option>
             <option>Spinner</option>
@@ -45,37 +45,39 @@
             <option>Blando</option>
           </select>
         </label>
-        <label class="item item-icon-right item-input item-stacked-label">
-          <span class="input-label">Fecha</span>
+        <label class="item item-icon-left item-input item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Fecha</span>
           <input type="date" ng-model="catchData.date">
           <i class="icon ion-clock assertive"></i>
         </label>
-        <label class="item item-icon-right item-input item-stacked-label">
-          <span class="input-label">Hora</span>
+        <label class="item item-icon-left item-input item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Hora</span>
           <input type="time" ng-model="catchData.time">
           <i class="icon ion-clock assertive"></i>
         </label>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Nombre del Lugar</span>
-          <input type="text" placeholder="Estacion" ng-model="catchData.placeName">
-          <i class="icon ion-map energized"></i>
-        </label>
-        <label class="item item-input item-select" s>
-          <div class="input-label">
+        <label class="item item-input item-icon-left item-select" s>
+          <div class="input-label" style="margin-left: 35px">
             Sigue nadando ?
           </div>
+          <i ng-if="catchData.released!='Si'"  class="icon icon icon-pisces7" style="font-size: 25px"></i>
+          <i ng-if="catchData.released=='Si'" class="icon icon icon-pisces7 energized" style="font-size: 25px"></i>
           <select ng-model="catchData.released">
             <option selected>Si</option>
             <option>No</option>
           </select>
         </label>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Notas</span>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Notas</span>
           <input type="text" ng-model="catchData.message">
           <i class="icon ion-ios7-chatbubble positive"></i>
         </label>
-        <label class="item item-input item-icon-right item-stacked-label">
-          <span class="input-label">Coordenadas del Lugar</span>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Lugar</span>
+          <input type="text" placeholder="Estacion" ng-model="catchData.placeName">
+          <i class="icon ion-map energized"></i>
+        </label>
+        <label class="item item-input item-icon-left item-stacked-label">
+          <span class="input-label" style="margin-left: 35px">Coordenadas del Lugar</span>
           <i class="icon ion-location assertive"></i>
           <span class="item" ng-if="catchData.placeLatitude" style="border:none;font-size:11px;padding:5px 2px">Latitud: {{catchData.placeLatitude}} <br> Longitud: {{catchData.placeLongitude}}</span>
         </label>
