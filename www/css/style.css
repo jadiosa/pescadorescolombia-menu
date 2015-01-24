@@ -36,3 +36,18 @@ ion-nav-view {
 .scroll {
   height: 100%;
 }
+
+.slider-pager .slider-pager-page {
+  color: #fff;
+}
+
+.slider-img {
+  margin-bottom: 15px
+} 
+
+.bar-footer-login {
+  background: none;
+  padding-top:  0px;
+  padding-bottom: 0px;
+  margin-bottom:  10px
+}

@@ -1,19 +1,35 @@
 <ion-view title="PescadoresColombia" class="background-image2" hide-back-button="true" hide-nav-bar="true">
-
     <ion-content has-header="true">
-        <br />
-        <div class="list list-inset" style="background:none">
-            <center>
-                <div style="border:none;margin-top:0px;">
-                    <img src="img/Logo_PescadoresColombia.png"/>
+      <ion-slide-box on-slide-changed="slideHasChanged($index)">
+          <ion-slide>
+            <div class="box">
+                <div class="item-image slider-img">  
+                    <img src="img/login-logo.png"/>
                 </div>
-            </center>
-            <br />
-        </div>
+                <br />
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="box slider-login">
+                <div class="item-image" class="item-image slider-img">  
+                    <img src="img/login-noticias.png"/>
+                </div>
+                <br />
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="box slider-login">
+                <div class="item-image" class="item-image slider-img">  
+                    <img src="img/login-capturas.png"/>
+                </div>
+                <br />
+            </div>
+          </ion-slide>
+        </ion-slide-box>  
     </ion-content>
-    <div class="bar bar-footer" style="background:none;padding-top:0px;padding-bottom:0px;margin-bottom:10px">
+    <div class="bar bar-footer bar-footer-login">
         <div class="button-bar">
-            <a class="button button-block button-light item item-icon-left" style="padding-top:5px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;margin-right:5px;font-size:14px;color: #000" ng-click="doLogin()">
+            <a class="button button-block button-light item item-icon-left bar-footer-login-a" style="padding-top:5px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;margin-right:5px;font-size:14px;color: #000" ng-click="doLogin()">
                 <i class="icon ion-social-facebook positive "></i>
                 &nbsp;&nbsp;Ingresar&nbsp;&nbsp;
             </a>
